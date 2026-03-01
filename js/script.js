@@ -2,6 +2,36 @@
    JHV Pvt Ltd — Main JavaScript
    ============================================================ */
 
+
+   
+//email
+// Initialize EmailJS (once, at top of DOMContentLoaded)
+emailjs.init('wggiXXRbrSPCd43ZB');
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = contactForm.querySelector('button[type="submit"]');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  emailjs.sendForm('service_rr24fzc', 'template_ynl8kup', contactForm)
+    .then(() => {
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = '#00e5a0';
+      contactForm.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    })
+    .catch(() => {
+      btn.textContent = '✗ Failed. Try again.';
+      btn.style.background = '#ff4444';
+      btn.disabled = false;
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Sticky Navigation ────────────────────────────────────────
@@ -102,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── Contact Form Handler ─────────────────────────────────────
-  const contactForm = document.getElementById('contactForm');
+  /*const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -121,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     });
   }
-
+  */
   // ── Smooth Scroll for Anchor Links ──────────────────────────
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -154,3 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(sec => sectionObserver.observe(sec));
 
 });
+
+
+
